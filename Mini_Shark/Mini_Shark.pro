@@ -28,8 +28,8 @@ FORMS += \
 TRANSLATIONS += \
     Mini_Shark_zh_CN.ts
 
-INCLUDEPATH += H:\NetWork_Course_Design\WpdPack\Include
-LIBS += H:\NetWork_Course_Design\WpdPack\Lib\x64\wpcap.lib  libws2_32
+INCLUDEPATH += G:\NetWork_Course_Design\WpdPack\Include
+LIBS += G:\NetWork_Course_Design\WpdPack\Lib\x64\wpcap.lib  libws2_32
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
