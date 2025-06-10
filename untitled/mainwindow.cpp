@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "QString"
 #include "multhread.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -39,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
                 //
             }
         });
+    connect(thread,&multhread::send,this,&MainWindow::HandleMessage);
 }
 
 MainWindow::~MainWindow()
@@ -101,5 +103,9 @@ int MainWindow::capture()
         statusBar()->showMessage("Capturing on: " + QString(device->name));
     }
     return 0;
+}
+
+void MainWindow::HandleMessage(datapackage data){
+   qDebug()<<data.getTimeStamp()<<" "<<data.getInfo();
 }
 

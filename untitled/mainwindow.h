@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "pcap.h"
 #include "winsock2.h"
+#include "datapackage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,7 +22,9 @@ public:
 
 private slots:
     void on_comboBox_currentIndexChanged(int index);
-
+public slots:
+    //信号接收
+    void HandleMessage(datapackage data);
 private:
     Ui::MainWindow *ui;
     pcap_if_t *all_devices;                 // all adapter device数据结构类似没有头节点的链表
