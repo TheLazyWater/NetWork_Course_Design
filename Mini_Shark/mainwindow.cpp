@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QString>
+#include <QDebug>
+#include "multhread.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,17 +11,32 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     showNetworkCard();
     static bool index = false;
+    multhread* thread = new multhread;          //创建实例化对象
     connect(ui->actionrunandstop,&QAction::triggered,this,[=]()
     {
         index = !index;
         if (index)
         {
             //开始
-            capture();
+            int res = capture();
+            if (res != -1  &&  pointer)
+            {
+                thread->setPointer(pointer);        //传递设备指针
+                thread->setFlag();                  //设置开关位
+                thread->start();
+                ui->actionrunandstop->setIcon(QIcon(":/stop.png"));
+                ui->comboBox->setEnabled(false);
+            }
         }
         else
         {
-            //
+            thread->resetFlag();
+            thread->quit();     //放弃争夺cpu时间片
+            thread->wait();     //等待资源释放
+            ui->actionrunandstop->setIcon(QIcon(":/start.png"));
+            ui->comboBox->setEnabled(true);
+            pcap_close(pointer);
+            pointer = nullptr;
         }
     });
 }
