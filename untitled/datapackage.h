@@ -12,7 +12,7 @@ private:
     QString info;
     int package_type;  //数据包类型
 protected:
-    static QString byteToString(char*str,int size); //一字节数据转16进制
+    static QString byteToString(u_char*str,int size); //一字节数据转16进制
 public:
     const u_char*pkt_content;  //信息初始指针
 public:
