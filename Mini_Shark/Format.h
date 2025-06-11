@@ -6,6 +6,14 @@ typedef unsigned short u_short;   // 2 byte
 typedef unsigned int u_int;       // 4 byte
 typedef unsigned long u_long;     // 4 byte
 
+#define ARP  "ARP"                 //
+#define TCP  "TCP"                 //
+#define UDP  "UDP"                 //
+#define ICMP "ICMP"                //
+#define DNS  "DNS"                 //
+#define TLS  "TLS"                 //
+#define SSL  "SSL"                 //
+
 // Ethernet protocol format
 /*
 +-------------------+-----------------+------+

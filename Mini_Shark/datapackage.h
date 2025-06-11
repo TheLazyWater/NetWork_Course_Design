@@ -3,6 +3,7 @@
 #include <QString>
 #include "Format.h"
 
+
 class DataPackage
 {
 private:

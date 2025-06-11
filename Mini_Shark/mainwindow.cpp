@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
             pointer = nullptr;
         }
     });
+    connect(thread,&multhread::send,this,&MainWindow::handleMessage);
 }
 
 MainWindow::~MainWindow()
@@ -105,4 +106,10 @@ int MainWindow::capture()
         statusBar()->showMessage(device->name);
     }
     return 0;
+}
+
+
+void MainWindow::handleMessage(DataPackage data)
+{
+    qDebug()<<data.getTimeStamp()<<" "<<data.getInfo();
 }

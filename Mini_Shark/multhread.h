@@ -2,6 +2,7 @@
 #define MULTHREAD_H
 #include <QThread>
 #include "pcap.h"
+#include "datapackage.h"
 
 class multhread:public QThread
 {
@@ -12,6 +13,10 @@ public:
     void setFlag();         //设置开关变量
     void resetFlag();       //重置开关变量
     void run() override;
+    int ethernetPackageHandle(const u_char *pkt_content,QString &info);
+signals:
+    void send(DataPackage data);
+
 private:
     pcap_t* pointer;        //设备标识符指针
     struct pcap_pkthdr* header;         //数据包头部结构指针
