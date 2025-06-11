@@ -1,5 +1,6 @@
 #include "datapackage.h"
 #include <QMetaType>
+#include "winsock2.h"
 #include "winsock.h"
 #include <QVector>
 
@@ -80,13 +81,75 @@ QString DataPackage::getInfo(){
     return info;
 }
 
-//QString DataPackage::getSource(){
-//    if(this->packageType == 1)
+/* Ether */
+/********************** get destination ethenet address **********************/
+QString DataPackage::getDesMacAddr(){
+    ETHER_HEADER*ethernet;
+    ethernet = (ETHER_HEADER*)pkt_content;
+    u_char*addr;
+    if(ethernet){
+        addr = ethernet->ether_des_host;
+        if(addr){
+            QString res = byteToHex(addr,1) + ":"
+                    + byteToHex((addr+1),1) + ":"
+                    + byteToHex((addr+2),1) + ":"
+                    + byteToHex((addr+3),1) + ":"
+                    + byteToHex((addr+4),1) + ":"
+                    + byteToHex((addr+5),1);
+            if(res == "FF:FF:FF:FF:FF:FF") return "FF:FF:FF:FF:FF:FF(Broadcast)";
+            else return res;
+        }
+    }
+    return "";
+}
+/********************** get source ethenet address **********************/
+QString DataPackage::getSrcMacAddr(){
+    ETHER_HEADER*ethernet;
+    ethernet = (ETHER_HEADER*)pkt_content;
+    u_char*addr;
+    if(ethernet){
+        addr = ethernet->ether_src_host;
+        if(addr){
+            QString res = byteToHex(addr,1) + ":"
+                    + byteToHex((addr+1),1) + ":"
+                    + byteToHex((addr+2),1) + ":"
+                    + byteToHex((addr+3),1) + ":"
+                    + byteToHex((addr+4),1) + ":"
+                    + byteToHex((addr+5),1);
+            if(res == "FF:FF:FF:FF:FF:FF") return "FF:FF:FF:FF:FF:FF(Broadcast)";
+            else return res;
+        }
+    }
+    return "";
+}
+
+/* ip */
+/********************** get destination ip address **********************/
+QString DataPackage::getDesIpAddr(){
+    IP_HEADER*ip;
+    ip = (IP_HEADER*)(pkt_content + 14);
+    sockaddr_in desAddr;
+    desAddr.sin_addr.s_addr = ip->des_addr;
+    return QString(inet_ntoa(desAddr.sin_addr));
+}
+/********************** get source ip address **********************/
+QString DataPackage::getSrcIpAddr(){
+    IP_HEADER*ip;
+    ip = (IP_HEADER*)(pkt_content + 14);
+    sockaddr_in srcAddr;
+    srcAddr.sin_addr.s_addr = ip->src_addr;
+    return QString(inet_ntoa(srcAddr.sin_addr));
+}
+
+QString DataPackage::getSource(){
+    if(this->packageType == 1)
 //        return getArpSourceIpAddr();
-//    else return getSrcIpAddr();
-//}
-//QString DataPackage::getDestination(){
-//    if(this->packageType == 1)
+        return getSrcMacAddr();
+    else return getSrcIpAddr();
+}
+QString DataPackage::getDestination(){
+    if(this->packageType == 1)
 //        return getArpDestinationIpAddr();
-//    else return getDesIpAddr();
-//}
+        return getDesMacAddr();
+    else return getDesIpAddr();
+}

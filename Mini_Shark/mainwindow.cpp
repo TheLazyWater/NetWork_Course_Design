@@ -9,6 +9,17 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    statusBar()->showMessage("welcome to Mini Shark!");
+    // set the toolbar
+//    ui->toolBar->addAction(ui->actionstart_capture);
+//    ui->toolBar->addAction(ui->actionclear_all);
+//    ui->toolBar->addAction(ui->actionup);
+//    ui->toolBar->addAction(ui->actiondown);
+//    ui->toolBar->addAction(ui->actionTop);
+//    ui->toolBar->addAction(ui->actionEnd);
+    ui->toolBar->addAction(ui->actionrunandstop);
+    ui->toolBar->addAction(ui->actionclear);
+    countNumber = 0;
     showNetworkCard();
     static bool index = false;
     multhread* thread = new multhread;          //创建实例化对象
@@ -18,14 +29,32 @@ MainWindow::MainWindow(QWidget *parent)
         if (index)
         {
             //开始
+            ui->tableWidget->clearContents();
+            ui->tableWidget->setRowCount(0);
+            countNumber = 0;
+
+            /*释放内存*/
+            int dataSize = this->pData.size();
+            for (int i = 0; i < dataSize; i++)
+            {
+                free((char*)(this->pData[i].pkt_content));
+                this->pData[i].pkt_content = nullptr;
+            }
+            QVector<DataPackage>().swap(pData);
+
             int res = capture();
-            if (res != -1  &&  pointer)
+            if (res != -1  &&  pointer)     //设备打开成功
             {
                 thread->setPointer(pointer);        //传递设备指针
                 thread->setFlag();                  //设置开关位
                 thread->start();
                 ui->actionrunandstop->setIcon(QIcon(":/stop.png"));
                 ui->comboBox->setEnabled(false);
+            }
+            else                //设备打开失败
+            {
+                index = !index;
+                countNumber = 0;
             }
         }
         else
@@ -40,6 +69,28 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
     connect(thread,&multhread::send,this,&MainWindow::handleMessage);
+    // initialization
+    ui->tableWidget->setShowGrid(false);
+    ui->toolBar->setMovable(false);            //禁止移动工具栏
+    ui->tableWidget->verticalHeader()->setVisible(false);
+    ui->tableWidget->setColumnCount(7);
+//    readOnlyDelegate = new ReadOnlyDelegate();
+//    ui->tableWidget->setItemDelegate(readOnlyDelegate);
+    QStringList title = {"NO.","Time","Source","Destination","Protocol","Length","Info"};
+    ui->tableWidget->setHorizontalHeaderLabels(title);
+    ui->tableWidget->verticalHeader()->setDefaultSectionSize(30);       //设置表格每一行的文字像素大小为30
+    ui->tableWidget->setColumnWidth(0,50);
+    ui->tableWidget->setColumnWidth(1,150);
+    ui->tableWidget->setColumnWidth(2,300);
+    ui->tableWidget->setColumnWidth(3,300);
+    ui->tableWidget->setColumnWidth(4,100);
+    ui->tableWidget->setColumnWidth(5,100);
+    ui->tableWidget->setColumnWidth(6,1000);
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->treeWidget->setHeaderHidden(true);
+    ui->tableWidget->setShowGrid(false);
+    ui->tableWidget->verticalHeader()->setVisible(false);
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 MainWindow::~MainWindow()
@@ -111,5 +162,36 @@ int MainWindow::capture()
 
 void MainWindow::handleMessage(DataPackage data)
 {
-    qDebug()<<data.getTimeStamp()<<" "<<data.getInfo();
+    ui->tableWidget->insertRow(countNumber);
+    this->pData.push_back(data);
+    QString type = data.getPackageType();
+    QColor color;
+    // show different color
+    if(type == TCP){
+        color = QColor(216,191,216);
+    }else if(type == TCP){
+        color = QColor(144,238,144);
+    }
+    else if(type == ARP){
+        color = QColor(238,238,0);
+    }
+    else if(type == DNS){
+        color = QColor(255,255,224);
+    }else if(type == TLS || type == SSL){
+        color = QColor(210,149,210);
+    }else{
+        color = QColor(255,218,185);
+    }
+    ui->tableWidget->setItem(countNumber,0,new QTableWidgetItem(QString::number(countNumber + 1)));
+    ui->tableWidget->setItem(countNumber,1,new QTableWidgetItem(data.getTimeStamp()));
+    ui->tableWidget->setItem(countNumber,2,new QTableWidgetItem(data.getSource()));
+    ui->tableWidget->setItem(countNumber,3,new QTableWidgetItem(data.getDestination()));
+    ui->tableWidget->setItem(countNumber,4,new QTableWidgetItem(type));
+    ui->tableWidget->setItem(countNumber,5,new QTableWidgetItem(data.getDataLength()));
+    ui->tableWidget->setItem(countNumber,6,new QTableWidgetItem(data.getInfo()));
+    // set color
+    for(int i = 0;i < 7;i++){
+        ui->tableWidget->item(countNumber,i)->setBackground(color);
+    }
+    countNumber++;
 }

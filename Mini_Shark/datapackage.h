@@ -39,6 +39,15 @@ public:
     QString getInfo();                        // get a breif package information
     QString getSource();                      // get the source address of package
     QString getDestination();                 // get the destination address of package
+
+    // get the mac info
+    QString getDesMacAddr();                  // get the destination MAC address
+    QString getSrcMacAddr();                  // get the source MAC address
+//    QString getMacType();                     // get the type of MAC address
+
+    // get the ip info
+    QString getDesIpAddr();                   // get the destination ip address
+    QString getSrcIpAddr();                   // get the source ip address
 };
 
 #endif // DATAPACKAGE_H

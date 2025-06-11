@@ -5,6 +5,7 @@
 #include "datapackage.h"
 #include "pcap.h"
 #include "winsock2.h"
+#include <QVector>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,6 +31,8 @@ private:
     pcap_if_t *all_devices;                 // all adapter device数据结构类似没有头节点的链表
     pcap_if_t *device;                      // An adapter指向当前设备
     pcap_t *pointer;                        // data package pointer设备描述符
+    QVector<DataPackage>pData;              //数据包容器（变长数组）
+    int countNumber;                        //数据包个数
     char errbuf[PCAP_ERRBUF_SIZE];          // error buffer报错缓冲区
 };
 #endif // MAINWINDOW_H

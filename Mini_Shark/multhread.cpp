@@ -50,6 +50,8 @@ void multhread::run()
                 data.setPackageInfo(info);
                 data.setDataLength(len);
                 data.setTimeStamp(timeString);
+                data.setPackageType(type);
+                data.setPackagePointer(pkt_data,len);
                 emit send(data);
             }
         }
