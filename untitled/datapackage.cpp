@@ -1,5 +1,6 @@
 #include "datapackage.h"
 #include <QMetaType>
+#include "winsock2.h"
 
 datapackage::datapackage()
 {
@@ -15,7 +16,8 @@ void datapackage::setInfo(QString info){
     this->info = info;
 }
 void datapackage::setPointer(const u_char *pkt_content,int size){
-    this->pkt_content = pkt_content;
+//    this->pkt_content = pkt_content; //并非直接赋值,内存非法访问
+    this->pkt_content = (u_char*)malloc(size);//申请内存
     //存储
     memcpy((char*)(this->pkt_content),pkt_content,size);
 }
@@ -70,4 +72,75 @@ QString datapackage::byteToString(u_char *str, int size){
         res.append(two);
     }
     return res;
+}
+
+void datapackage::setPackageType(int type){
+    this->package_type = type;
+}
+QString datapackage::getSourse(){
+    if(this->package_type == 1){
+        return this->getSrcMacAddr();
+    }
+    else
+        return this->getSrcIpAddr();
+}
+
+QString datapackage::getDestination(){
+    if(this->package_type == 1){
+        return this->getDesMacAddr();
+    }
+    else
+        return this->getDesIpAddr();
+}
+
+QString datapackage::getDesMacAddr(){
+    ETHER_HEADER*eth;
+    eth = (ETHER_HEADER*)(pkt_content);
+    u_char*addr = eth->ethernet_des_host;
+    if(addr){
+        QString res = byteToString(addr,1) + ":"
+                + byteToString((addr+1),1) + ":"
+                + byteToString((addr+2),1) + ":"
+                + byteToString((addr+3),1) + ":"
+                + byteToString((addr+4),1) + ":"
+                + byteToString((addr+5),1) + ":"
+                + byteToString((addr+6),1);
+        if(res == "FF:FF:FF:FF:FF:FF"){
+            return "FF:FF:FF:FF:FF:FF(Broadcast)";
+        }else return res;
+    }
+}
+
+QString datapackage::getSrcMacAddr(){
+    ETHER_HEADER*eth;
+    eth = (ETHER_HEADER*)(pkt_content);
+    u_char*addr = eth->ethernet_src_host;
+    if(addr){
+        QString res = byteToString(addr,1) + ":"
+                + byteToString((addr+1),1) + ":"
+                + byteToString((addr+2),1) + ":"
+                + byteToString((addr+3),1) + ":"
+                + byteToString((addr+4),1) + ":"
+                + byteToString((addr+5),1) + ":"
+                + byteToString((addr+6),1);
+        if(res == "FF:FF:FF:FF:FF:FF"){
+            return "FF:FF:FF:FF:FF:FF(Broadcast)";
+        }else return res;
+    }
+}
+
+QString datapackage::getDesIpAddr(){
+    IP_HEADER*ip;
+    ip = (IP_HEADER*)(pkt_content + 14);
+    sockaddr_in desAddr;
+    desAddr.sin_addr.s_addr = ip->des_addr;
+    return QString(inet_ntoa(desAddr.sin_addr));
+}
+
+QString datapackage::getSrcIpAddr(){
+    IP_HEADER*ip;
+    ip = (IP_HEADER*)(pkt_content + 14);
+    sockaddr_in srcAddr;
+    srcAddr.sin_addr.s_addr = ip->src_addr;
+    return QString(inet_ntoa(srcAddr.sin_addr));
 }

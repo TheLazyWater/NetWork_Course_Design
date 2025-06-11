@@ -28,6 +28,15 @@ public:
     QString getTimeStamp();
     QString getPackageType();
     QString getInfo();
+
+    QString getSourse();
+    QString getDestination();
+
+    QString getDesMacAddr();
+    QString getSrcMacAddr();
+
+    QString getDesIpAddr();
+    QString getSrcIpAddr();
 };
 
 #endif // DATAPACKAGE_H
