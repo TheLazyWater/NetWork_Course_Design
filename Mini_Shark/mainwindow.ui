@@ -79,19 +79,23 @@
      <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuproject">
-    <property name="title">
-     <string>project</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menurun">
     <property name="title">
-     <string>run</string>
+     <string>Run</string>
     </property>
-    <addaction name="actionrunandstop"/>
-    <addaction name="actionclear"/>
+    <addaction name="actionstart_capture"/>
+    <addaction name="actionclear_all"/>
    </widget>
-   <addaction name="menuproject"/>
+   <widget class="QMenu" name="menuedit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionup"/>
+    <addaction name="actiondown"/>
+    <addaction name="actionTop"/>
+    <addaction name="actionEnd"/>
+   </widget>
+   <addaction name="menuedit"/>
    <addaction name="menurun"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -106,22 +110,58 @@
     <bool>false</bool>
    </attribute>
   </widget>
-  <action name="actionrunandstop">
+  <action name="actionstart_capture">
    <property name="icon">
     <iconset resource="src.qrc">
      <normaloff>:/start.png</normaloff>:/start.png</iconset>
    </property>
    <property name="text">
-    <string>runandstop</string>
+    <string>start/stop</string>
    </property>
   </action>
-  <action name="actionclear">
+  <action name="actionclear_all">
    <property name="icon">
     <iconset resource="src.qrc">
      <normaloff>:/empty.png</normaloff>:/empty.png</iconset>
    </property>
    <property name="text">
     <string>clear</string>
+   </property>
+  </action>
+  <action name="actionup">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/up.png</normaloff>:/up.png</iconset>
+   </property>
+   <property name="text">
+    <string>up</string>
+   </property>
+  </action>
+  <action name="actiondown">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/down.png</normaloff>:/down.png</iconset>
+   </property>
+   <property name="text">
+    <string>down</string>
+   </property>
+  </action>
+  <action name="actionTop">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/upest.png</normaloff>:/upest.png</iconset>
+   </property>
+   <property name="text">
+    <string>Top</string>
+   </property>
+  </action>
+  <action name="actionEnd">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/downest.png</normaloff>:/downest.png</iconset>
+   </property>
+   <property name="text">
+    <string>End</string>
    </property>
   </action>
  </widget>

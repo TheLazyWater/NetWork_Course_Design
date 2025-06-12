@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    capture.cpp \
     datapackage.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
     Format.h \
+    capture.h \
     datapackage.h \
     mainwindow.h \
     multhread.h
@@ -35,6 +37,7 @@ TRANSLATIONS += \
 
 INCLUDEPATH += G:\NetWork_Course_Design\WpdPack\Include
 LIBS += G:\NetWork_Course_Design\WpdPack\Lib\x64\wpcap.lib  libws2_32
+#RC_FILE = res.rc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

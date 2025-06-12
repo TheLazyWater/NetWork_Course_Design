@@ -145,4 +145,41 @@ typedef struct arp_header{   // 28 byte
     u_char des_ip_addr[4];   // destination ip address [4 byte]
 
 }ARP_HEADER;
+
+// dns
+/*
++--------------------------+---------------------------+
+|           16 bit         |1b|4bit|1b|1b|1b|1b|3b|4bit|
++--------------------------+--+----+--+--+--+--+--+----+
+|      identification      |QR| OP |AA|TC|RD|RA|..|Resp|
++--------------------------+--+----+--+--+--+--+--+----+
+|         Question         |       Answer RRs          |
++--------------------------+---------------------------+
+|     Authority RRs        |      Additional RRs       |
++--------------------------+---------------------------+
+*/
+typedef struct dns_header{  // 12 byte
+    u_short identification; // Identification [2 byte]
+    u_short flags;          // Flags [total 2 byte]
+    u_short question;       // Question Number [2 byte]
+    u_short answer;         // Answer RRs [2 byte]
+    u_short authority;      // Authority RRs [2 byte]
+    u_short additional;     // Additional RRs [2 byte]
+}DNS_HEADER;
+
+// dns question
+typedef struct dns_question{
+    // char* name;          // Non-fixed
+    u_short query_type;     // 2 byte
+    u_short query_class;    // 2 byte
+}DNS_QUESITON;
+
+typedef struct dns_answer{
+    // char* name          // Non-fixed
+    u_short answer_type;   // 2 byte
+    u_short answer_class;  // 2 byte
+    u_int TTL;             // 4 byte
+    u_short dataLength;    // 2 byte
+    //char* name           // Non-fixed
+}DNS_ANSWER;
 #endif // FORMAT_H
