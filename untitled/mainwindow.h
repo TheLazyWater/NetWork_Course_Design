@@ -23,6 +23,8 @@ public:
 
 private slots:
     void on_comboBox_currentIndexChanged(int index);
+    void on_tableWidget_cellClicked(int row, int column);
+
 public slots:
     //信号接收
     void HandleMessage(datapackage data);
@@ -34,5 +36,6 @@ private:
     QVector<datapackage>pData;              //数据包容器
     int countNumber;                        //数据包个数
     char errbuf[PCAP_ERRBUF_SIZE];          // error buffer报错缓冲区
+    int numberROW;                          //选中行
 };
 #endif // MAINWINDOW_H
