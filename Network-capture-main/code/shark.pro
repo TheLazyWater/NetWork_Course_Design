@@ -34,8 +34,8 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
-INCLUDEPATH += D:/WpdPack/Include
-LIBS += D:/WpdPack/Lib/wpcap.lib  libws2_32
+INCLUDEPATH += G:\NetWork_Course_Design\WpdPack\Include
+LIBS += G:\NetWork_Course_Design\WpdPack\Lib\x64\wpcap.lib  libws2_32
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

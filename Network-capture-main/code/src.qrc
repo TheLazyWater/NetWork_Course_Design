@@ -8,5 +8,6 @@
         <file>up.png</file>
         <file>downest.png</file>
         <file>upest.png</file>
+        <file>metashark.png</file>
     </qresource>
 </RCC>

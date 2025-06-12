@@ -1,3 +1,11 @@
+/********************************************************************************
+** Form generated from reading UI file 'mainwindow.ui'
+**
+** Created by: Qt User Interface Compiler version 5.14.2
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
+
 #ifndef UI_MAINWINDOW_H
 #define UI_MAINWINDOW_H
 
@@ -44,8 +52,9 @@ public:
     QTableWidget *tableWidget;
     QTreeWidget *treeWidget;
     TrafficAnalyzer *trafficAnalyzerPlaceholder;
+    QWidget *tab_3;
+    QWidget *tab_4;
     QMenuBar *menubar;
-    QMenu *menu;
     QMenu *menuedit;
     QMenu *menuRun;
     QMenu *menuhelp;
@@ -58,7 +67,7 @@ public:
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1425, 751);
         QIcon icon;
-        icon.addFile(QString::fromUtf8(":/shark.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QString::fromUtf8(":/metashark.png"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
         actionstart_capture = new QAction(MainWindow);
         actionstart_capture->setObjectName(QString::fromUtf8("actionstart_capture"));
@@ -147,6 +156,12 @@ public:
         splitter->addWidget(treeWidget);
         trafficAnalyzerPlaceholder = new TrafficAnalyzer(splitter);
         trafficAnalyzerPlaceholder->setObjectName(QString::fromUtf8("trafficAnalyzerPlaceholder"));
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        trafficAnalyzerPlaceholder->addTab(tab_3, QString());
+        tab_4 = new QWidget();
+        tab_4->setObjectName(QString::fromUtf8("tab_4"));
+        trafficAnalyzerPlaceholder->addTab(tab_4, QString());
         splitter->addWidget(trafficAnalyzerPlaceholder);
 
         verticalLayout->addWidget(splitter);
@@ -154,9 +169,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 1425, 25));
-        menu = new QMenu(menubar);
-        menu->setObjectName(QString::fromUtf8("menu"));
+        menubar->setGeometry(QRect(0, 0, 1425, 26));
         menuedit = new QMenu(menubar);
         menuedit->setObjectName(QString::fromUtf8("menuedit"));
         menuRun = new QMenu(menubar);
@@ -171,7 +184,6 @@ public:
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
         MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
 
-        menubar->addAction(menu->menuAction());
         menubar->addAction(menuedit->menuAction());
         menubar->addAction(menuRun->menuAction());
         menubar->addAction(menuhelp->menuAction());
@@ -184,23 +196,27 @@ public:
 
         retranslateUi(MainWindow);
 
+        trafficAnalyzerPlaceholder->setCurrentIndex(0);
+
+
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
     void retranslateUi(QMainWindow *MainWindow)
     {
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Mini Shark", nullptr));
         actionstart_capture->setText(QCoreApplication::translate("MainWindow", "start/stop", nullptr));
         actionclear_all->setText(QCoreApplication::translate("MainWindow", "clear all", nullptr));
         actionup->setText(QCoreApplication::translate("MainWindow", "up", nullptr));
         actiondown->setText(QCoreApplication::translate("MainWindow", "down", nullptr));
         actionTop->setText(QCoreApplication::translate("MainWindow", "Top", nullptr));
         actionEnd->setText(QCoreApplication::translate("MainWindow", "End", nullptr));
-        menu->setTitle(QCoreApplication::translate("MainWindow", "project", nullptr));
-        menuedit->setTitle(QCoreApplication::translate("MainWindow", "edit", nullptr));
+        trafficAnalyzerPlaceholder->setTabText(trafficAnalyzerPlaceholder->indexOf(tab_3), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
+        trafficAnalyzerPlaceholder->setTabText(trafficAnalyzerPlaceholder->indexOf(tab_4), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
+        menuedit->setTitle(QCoreApplication::translate("MainWindow", "Edit", nullptr));
         menuRun->setTitle(QCoreApplication::translate("MainWindow", "Run", nullptr));
-        menuhelp->setTitle(QCoreApplication::translate("MainWindow", "help", nullptr));
+        menuhelp->setTitle(QCoreApplication::translate("MainWindow", "Help", nullptr));
         toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
-        (void)MainWindow;
     } // retranslateUi
 
 };

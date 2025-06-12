@@ -1,0 +1,10 @@
+release/1.o
+release/capture.o
+release/datapackage.o
+release/main.o
+release/mainwindow.o
+release/readonlydelegate.o
+release/qrc_src.o
+release/moc_1.o
+release/moc_capture.o
+release/moc_mainwindow.o

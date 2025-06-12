@@ -10,9 +10,12 @@
     <height>751</height>
    </rect>
   </property>
+  <property name="windowTitle">
+   <string>Mini Shark</string>
+  </property>
   <property name="windowIcon">
    <iconset resource="src.qrc">
-    <normaloff>:/shark.png</normaloff>:/shark.png</iconset>
+    <normaloff>:/metashark.png</normaloff>:/metashark.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="mouseTracking">
@@ -135,17 +138,12 @@
      <x>0</x>
      <y>0</y>
      <width>1425</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu">
-    <property name="title">
-     <string>project</string>
-    </property>
-   </widget>
    <widget class="QMenu" name="menuedit">
     <property name="title">
-     <string>edit</string>
+     <string>Edit</string>
     </property>
     <addaction name="actionup"/>
     <addaction name="actiondown"/>
@@ -161,10 +159,9 @@
    </widget>
    <widget class="QMenu" name="menuhelp">
     <property name="title">
-     <string>help</string>
+     <string>Help</string>
     </property>
    </widget>
-   <addaction name="menu"/>
    <addaction name="menuedit"/>
    <addaction name="menuRun"/>
    <addaction name="menuhelp"/>

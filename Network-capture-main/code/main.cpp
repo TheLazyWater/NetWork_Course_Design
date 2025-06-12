@@ -13,7 +13,8 @@ int main(int argc, char *argv[])
    */
     QApplication a(argc, argv);
     MainWindow w;
-    w.setWindowTitle("Shark - @copyright by DJH 2021");
+    w.setWindowTitle("Mini Shark");
+    w.setWindowIcon(QIcon("://metashark.png"));
     w.show();
     return a.exec();
 }

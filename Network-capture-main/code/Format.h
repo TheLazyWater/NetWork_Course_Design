@@ -1,12 +1,5 @@
 #ifndef FORMAT_H
 #define FORMAT_H
-
-/*
-   @ This head file is used to define format of packages
-   @ auther DJH-sudo
-   @ if you have any question,pls contact me at djh113@126.com
-*/
-
 // define some types and macro defination
 typedef unsigned char u_char;     // 1 byte
 typedef unsigned short u_short;   // 2 byte
