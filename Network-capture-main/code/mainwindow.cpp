@@ -4,6 +4,7 @@
 #include <QDebug>
 #include "winsock2.h"
 #include "capture.h"
+#include "1.h"
 #include <QStringList>
 #include <QColor>
 #include <QMessageBox>

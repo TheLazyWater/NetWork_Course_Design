@@ -1,14 +1,7 @@
-/********************************************************************************
-** Form generated from reading UI file 'mainwindow.ui'
-**
-** Created by: Qt User Interface Compiler version 5.14.2
-**
-** WARNING! All changes made in this file will be lost when recompiling UI file!
-********************************************************************************/
-
 #ifndef UI_MAINWINDOW_H
 #define UI_MAINWINDOW_H
 
+#include <1.h>
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QAction>
@@ -50,6 +43,7 @@ public:
     QSplitter *splitter;
     QTableWidget *tableWidget;
     QTreeWidget *treeWidget;
+    TrafficAnalyzer *trafficAnalyzerPlaceholder;
     QMenuBar *menubar;
     QMenu *menu;
     QMenu *menuedit;
@@ -151,6 +145,9 @@ public:
         font1.setWeight(50);
         treeWidget->setFont(font1);
         splitter->addWidget(treeWidget);
+        trafficAnalyzerPlaceholder = new TrafficAnalyzer(splitter);
+        trafficAnalyzerPlaceholder->setObjectName(QString::fromUtf8("trafficAnalyzerPlaceholder"));
+        splitter->addWidget(trafficAnalyzerPlaceholder);
 
         verticalLayout->addWidget(splitter);
 

@@ -6,7 +6,7 @@
 #include "capture.h"
 #include "readonlydelegate.h"
 #include <QVector>
-
+#include <1.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE

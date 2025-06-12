@@ -76,7 +76,10 @@ QString DataPackage::getPackageType(){
     }
 }
 
-QString DataPackage::getInfo(){
+QString DataPackage::getInfo()
+{
+    QString protocol = getPackageType();
+    QString info = "Protocol: " + protocol + ", Source: " + getSource() + ", Destination: " + getDestination();
     return info;
 }
 

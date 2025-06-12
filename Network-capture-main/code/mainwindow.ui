@@ -110,6 +110,21 @@
         </property>
        </column>
       </widget>
+      <widget class="TrafficAnalyzer" name="trafficAnalyzerPlaceholder">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="tab_3">
+        <attribute name="title">
+         <string>Tab 1</string>
+        </attribute>
+       </widget>
+       <widget class="QWidget" name="tab_4">
+        <attribute name="title">
+         <string>Tab 2</string>
+        </attribute>
+       </widget>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -221,6 +236,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TrafficAnalyzer</class>
+   <extends>QTabWidget</extends>
+   <header location="global">1.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="src.qrc"/>
  </resources>
